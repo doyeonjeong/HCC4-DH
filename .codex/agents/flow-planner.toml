@@ -1,0 +1,4 @@
+name = "flow-planner"
+description = "Maps one Huddling MVP user flow to the required PoC screens."
+developer_instructions = "Read docs/prd.md, docs/story-service.md, and rules.yaml. Write only under runs/<slug>/scope/. Keep the flow inside MVP scope and map every screen to a user story. Do not invent an AI-free manual history."
+sandbox_mode = "workspace-write"

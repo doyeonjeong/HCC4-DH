@@ -1,0 +1,101 @@
+<canvas id="0:1" name="Huddling MVP PoC" x="0" y="0" width="0" height="0">
+  <symbol id="5:2" name="Huddling / Button / Primary" x="1500" y="0" width="350" height="48" />
+  <frame id="5:4" name="library_home · 무료 학습자료" x="0" y="0" width="390" height="844">
+    <rounded-rectangle id="5:5" name="header/brand-mark" x="20" y="24" width="24" height="24" />
+    <text id="5:6" name="header/brand-letter" x="20" y="25" width="24" height="22" />
+    <text id="5:7" name="header/brand" x="52" y="22" width="180" height="28" />
+    <text id="5:8" name="header/profile" x="292" y="24" width="78" height="24" />
+    <text id="5:9" name="home/greeting" x="20" y="74" width="350" height="24" />
+    <text id="5:10" name="home/title" x="20" y="106" width="350" height="36" />
+    <rounded-rectangle id="5:11" name="home/search" x="20" y="158" width="350" height="48" />
+    <text id="5:12" name="home/search-placeholder" x="36" y="171" width="315" height="22" />
+    <rounded-rectangle id="5:13" name="filter/전체" x="20" y="224" width="64" height="34" />
+    <text id="5:14" name="filter-label/전체" x="24" y="230" width="56" height="21" />
+    <rounded-rectangle id="5:15" name="filter/AI 실무" x="92" y="224" width="82" height="34" />
+    <text id="5:16" name="filter-label/AI 실무" x="96" y="230" width="74" height="21" />
+    <rounded-rectangle id="5:17" name="filter/Figma + AI" x="184" y="224" width="100" height="34" />
+    <text id="5:18" name="filter-label/Figma + AI" x="188" y="230" width="92" height="21" />
+    <rounded-rectangle id="5:19" name="home/featured-card" x="20" y="280" width="350" height="226" />
+    <text id="5:20" name="home/featured-label" x="40" y="300" width="300" height="18" />
+    <text id="5:21" name="home/featured-title" x="40" y="330" width="310" height="60" />
+    <text id="5:22" name="home/featured-copy" x="40" y="395" width="310" height="38" />
+    <instance id="5:23" name="Button / 학습 시작" x="40" y="448" width="310" height="48" />
+    <text id="5:25" name="home/library-title" x="20" y="530" width="230" height="24" />
+    <text id="5:26" name="home/see-all" x="285" y="532" width="85" height="20" />
+    <rounded-rectangle id="5:27" name="home/resource-1" x="20" y="564" width="350" height="66" />
+    <text id="5:28" name="home/resource-1-meta" x="36" y="572" width="300" height="16" />
+    <text id="5:29" name="home/resource-1-title" x="36" y="591" width="316" height="24" />
+    <rounded-rectangle id="5:30" name="home/resource-2" x="20" y="640" width="350" height="66" />
+    <text id="5:31" name="home/resource-2-meta" x="36" y="648" width="300" height="16" />
+    <text id="5:32" name="home/resource-2-title" x="36" y="667" width="316" height="24" />
+    <rounded-rectangle id="5:33" name="nav/divider" x="0" y="763" width="390" height="1" />
+    <text id="5:34" name="nav/홈" x="15" y="784" width="76" height="24" />
+    <text id="5:35" name="nav/스킬" x="105" y="784" width="76" height="24" />
+    <text id="5:36" name="nav/미션" x="195" y="784" width="76" height="24" />
+    <text id="5:37" name="nav/내 자산" x="285" y="784" width="76" height="24" />
+    <rounded-rectangle id="5:38" name="nav/active-indicator" x="42" y="775" width="22" height="3" />
+  </frame>
+  <frame id="5:39" name="skill_detail · 스킬 상세" x="450" y="0" width="390" height="844">
+    <text id="5:40" name="header/back" x="20" y="20" width="24" height="34" />
+    <text id="5:41" name="header/brand" x="52" y="22" width="180" height="28" />
+    <text id="5:42" name="skill/page-title" x="52" y="22" width="250" height="28" />
+    <text id="5:43" name="skill/access-badge" x="20" y="76" width="110" height="20" />
+    <text id="5:44" name="skill/title" x="20" y="105" width="350" height="58" />
+    <text id="5:45" name="skill/summary" x="20" y="169" width="350" height="44" />
+    <rounded-rectangle id="5:46" name="skill/recommended-card" x="20" y="226" width="350" height="66" />
+    <text id="5:47" name="skill/recommended-label" x="36" y="236" width="100" height="16" />
+    <text id="5:48" name="skill/recommended-value" x="36" y="256" width="315" height="22" />
+    <text id="5:49" name="skill/when-title" x="20" y="315" width="350" height="24" />
+    <text id="5:50" name="skill/when-copy" x="20" y="345" width="350" height="40" />
+    <text id="5:51" name="skill/steps-title" x="20" y="399" width="350" height="24" />
+    <rounded-rectangle id="5:52" name="skill/step-number-0" x="20" y="432" width="32" height="30" />
+    <text id="5:53" name="skill/step-index-0" x="20" y="437" width="32" height="19" />
+    <text id="5:54" name="skill/step-copy-0" x="64" y="436" width="306" height="22" />
+    <rounded-rectangle id="5:55" name="skill/step-number-1" x="20" y="475" width="32" height="30" />
+    <text id="5:56" name="skill/step-index-1" x="20" y="480" width="32" height="19" />
+    <text id="5:57" name="skill/step-copy-1" x="64" y="479" width="306" height="22" />
+    <rounded-rectangle id="5:58" name="skill/step-number-2" x="20" y="518" width="32" height="30" />
+    <text id="5:59" name="skill/step-index-2" x="20" y="523" width="32" height="19" />
+    <text id="5:60" name="skill/step-copy-2" x="64" y="522" width="306" height="22" />
+    <rounded-rectangle id="5:61" name="skill/prompt-preview" x="20" y="570" width="350" height="62" />
+    <text id="5:62" name="skill/prompt-preview-copy" x="36" y="590" width="316" height="24" />
+    <instance id="5:63" name="Button / 프롬프트 복사" x="20" y="648" width="350" height="48" />
+    <rounded-rectangle id="5:65" name="nav/divider" x="0" y="763" width="390" height="1" />
+    <text id="5:66" name="nav/홈" x="15" y="784" width="76" height="24" />
+    <text id="5:67" name="nav/스킬" x="105" y="784" width="76" height="24" />
+    <text id="5:68" name="nav/미션" x="195" y="784" width="76" height="24" />
+    <text id="5:69" name="nav/내 자산" x="285" y="784" width="76" height="24" />
+    <rounded-rectangle id="5:70" name="nav/active-indicator" x="132" y="775" width="22" height="3" />
+  </frame>
+  <frame id="5:71" name="mission_submit · 미션 제출" x="900" y="0" width="390" height="844">
+    <text id="5:72" name="header/back" x="20" y="20" width="24" height="34" />
+    <text id="5:73" name="header/brand" x="52" y="22" width="180" height="28" />
+    <text id="5:74" name="mission/page-title" x="52" y="22" width="250" height="28" />
+    <text id="5:75" name="mission/kicker" x="20" y="76" width="250" height="20" />
+    <text id="5:76" name="mission/title" x="20" y="105" width="350" height="54" />
+    <text id="5:77" name="mission/summary" x="20" y="163" width="350" height="44" />
+    <rounded-rectangle id="5:78" name="mission/progress-track" x="20" y="226" width="350" height="8" />
+    <rounded-rectangle id="5:79" name="mission/progress-fill" x="20" y="226" width="145" height="8" />
+    <text id="5:80" name="mission/progress-label" x="20" y="243" width="250" height="20" />
+    <text id="5:81" name="mission/title-label" x="20" y="282" width="350" height="18" />
+    <rounded-rectangle id="5:82" name="mission/title-field" x="20" y="306" width="350" height="44" />
+    <text id="5:83" name="mission/title-placeholder" x="36" y="318" width="318" height="22" />
+    <text id="5:84" name="mission/description-label" x="20" y="367" width="350" height="18" />
+    <rounded-rectangle id="5:85" name="mission/description-field" x="20" y="391" width="350" height="78" />
+    <text id="5:86" name="mission/description-placeholder" x="36" y="407" width="318" height="48" />
+    <text id="5:87" name="mission/visibility-label" x="20" y="486" width="350" height="18" />
+    <rounded-rectangle id="5:88" name="filter/비공개" x="20" y="510" width="92" height="34" />
+    <text id="5:89" name="filter-label/비공개" x="24" y="516" width="84" height="21" />
+    <rounded-rectangle id="5:90" name="filter/멤버 공개" x="122" y="510" width="116" height="34" />
+    <text id="5:91" name="filter-label/멤버 공개" x="126" y="516" width="108" height="21" />
+    <rounded-rectangle id="5:92" name="mission/attachment-card" x="20" y="566" width="350" height="50" />
+    <text id="5:93" name="mission/attachment-label" x="36" y="580" width="318" height="22" />
+    <instance id="5:94" name="Button / 제출하기" x="20" y="642" width="350" height="48" />
+    <rounded-rectangle id="5:96" name="nav/divider" x="0" y="763" width="390" height="1" />
+    <text id="5:97" name="nav/홈" x="15" y="784" width="76" height="24" />
+    <text id="5:98" name="nav/스킬" x="105" y="784" width="76" height="24" />
+    <text id="5:99" name="nav/미션" x="195" y="784" width="76" height="24" />
+    <text id="5:100" name="nav/내 자산" x="285" y="784" width="76" height="24" />
+    <rounded-rectangle id="5:101" name="nav/active-indicator" x="222" y="775" width="22" height="3" />
+  </frame>
+</canvas>

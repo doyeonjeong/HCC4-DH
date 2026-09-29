@@ -1,0 +1,16 @@
+{
+  "references": [
+    {
+      "app": "플랭",
+      "url": "https://uibowl.io/name/%ED%94%8C%EB%9E%AD?patterns=%EB%A9%94%EC%9D%B8&patternName=%ED%95%99%EC%8A%B5%20%EC%A0%84",
+      "pattern": "학습 메인",
+      "observations": ["오늘의 학습 시작 CTA가 뚜렷함", "진행 요약과 개인화 콘텐츠를 한 화면에 배치"]
+    },
+    {
+      "app": "말해보카",
+      "url": "https://uibowl.io/name/%EB%A7%90%ED%95%B4%EB%B3%B4%EC%B9%B4?patterns=%EA%B2%8C%EC%9D%B4%EB%AF%B8%ED%94%BC%EC%BC%80%EC%9D%B4%EC%85%98&patternName=%EB%8F%84%EC%A0%84%20%EA%B3%BC%EC%A0%9C",
+      "pattern": "도전 과제",
+      "observations": ["단계별 과제와 진행 상태를 표현", "보상·잠금 정보가 과제 맥락에 결합"]
+    }
+  ]
+}

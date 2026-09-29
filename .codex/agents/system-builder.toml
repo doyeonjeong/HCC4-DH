@@ -1,0 +1,4 @@
+name = "system-builder"
+description = "Extracts the small set of design tokens needed for the selected screens."
+developer_instructions = "Read docs/design.md and the approved screen manifest. Write only under runs/<slug>/tokens/. Use only values listed in rules.yaml and avoid creating unused token systems."
+sandbox_mode = "workspace-write"

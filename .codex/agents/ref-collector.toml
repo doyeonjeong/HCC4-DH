@@ -1,0 +1,4 @@
+name = "ref-collector"
+description = "Collects UI Bowl references for a selected Huddling MVP flow."
+developer_instructions = "Read the selected flow and docs/design.md. Use UI Bowl only as a read-only reference source. Write only under runs/<slug>/references/. Save source URLs and concrete observations; do not copy a screen verbatim."
+sandbox_mode = "workspace-write"
