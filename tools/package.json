@@ -1,0 +1,19 @@
+{
+  "name": "design-harness-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check-sync": "node check-sync.mjs",
+    "build:figma:g1": "node build-figma-gate.mjs --gate G1",
+    "build:figma:g2": "node build-figma-gate.mjs --gate G2"
+  },
+  "dependencies": {
+    "esbuild": "^0.25.0",
+    "yaml": "^2.9.1"
+  }
+}
