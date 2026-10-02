@@ -1,33 +1,12 @@
-# R6 — 역할과 자연어 트리거
+# R6 — 역할과 작업 경계
 
-각 작업 에이전트는 지정된 폴더 하나만 편집한다. `gate-judge`는 전체 산출물을 읽기만 한다.
+- 프로젝트 소유자: 제품 사실과 범위를 제공하고 G3에서 결과를 승인합니다.
+- 지휘자(Claude Code 또는 Codex): 단계 순서를 지키고, 결과와 증거를 확인하며, 다음 작업을 결정합니다.
+- 조사자: 출처가 있는 UI 레퍼런스와 관찰 내용을 기록합니다.
+- 흐름·화면 설계자: 승인된 사용자 이야기와 컴포넌트만 사용해 화면과 상태를 정의합니다.
+- 시스템 설계자: 필요한 토큰과 컴포넌트만 `rules.yaml` 기준으로 정리합니다.
+- 게이트 판정자: Figma 덤프와 규칙을 읽고 기계 판정 결과를 보고합니다. 파일이나 Figma를 수정하지 않습니다.
 
-| 역할 | 책임 | 편집 폴더 |
-|---|---|---|
-| `ref-collector` | UI Bowl에서 학습·미션 화면 레퍼런스를 수집하고 출처·관찰 노트를 작성 | `runs/<slug>/references/` |
-| `flow-planner` | PRD 사용자 스토리를 선택한 MVP 화면 흐름과 연결 | `runs/<slug>/scope/` |
-| `key-screen-designer` | 사용자 흐름의 핵심 화면 3개와 필수 상태를 정의 | `runs/<slug>/key-screens/` |
-| `system-builder` | `docs/design.md` 토큰을 화면 구현용 파일로 정규화 | `runs/<slug>/tokens/` |
-| `screen-designer` | 승인된 명세를 Figma 프레임으로 만들고 링크·캡처 기록 | `runs/<slug>/figma/` 및 지정 Figma 파일 |
-| `orchestrator` | 단계 실행, 재개 상태, G5 승인 기록 관리 | `runs/<slug>/runtime/` |
-| `gate-judge` | SSOT 규칙으로 산출물을 판정하고 실패 단계·복귀 지점을 기록 | 읽기 전용 — 편집 폴더 없음 |
+Claude Code는 `CLAUDE.md`와 `.claude/settings.json`을 따릅니다. Codex는 `AGENTS.md`를 따릅니다. 두 지침 파일은 같은 `harness/` 규칙을 가리킵니다.
 
-## 자연어 트리거
-
-| 사용자가 말하면 | 실행 |
-|---|---|
-| `하네스 시작` | G1부터 G7까지 순서 실행. G5에서 승인 응답을 기다린다. |
-| `이어서 해줘` | `runs/<slug>/state.json`의 `last_pass` 다음 단계부터 재개한다. |
-| `레퍼런스 모아줘` | `ref-collector` 실행 후 G1 판정 |
-| `키스크린 그려줘` | `key-screen-designer` 실행 후 G4 판정 |
-| `토큰 만들어줘` | `system-builder` 실행 후 G6 판정 |
-| `화면 디자인해줘` | `screen-designer` 실행 후 G7 판정 |
-| `시안 확정: {안}` | 사람 결정은 `runs/<slug>/approval.md`에 기록하고, 입력 해시와 함께 `approval.json`에 바인딩한 뒤 G5 판정 |
-| `검수해줘`, `게이트 돌려줘` | `gate-judge`가 현재 산출물에 해당하는 게이트를 읽기 전용으로 실행 |
-
-## 실행 경계
-
-- 에이전트는 자기 편집 폴더 밖의 파일을 수정하지 않는다.
-- `gate-judge`는 산출물을 직접 고치지 않고 실패 조건과 복귀 단계만 반환한다.
-- Figma 쓰기는 `screen-designer` 한 역할에서만 수행한다.
-- UI Bowl은 출시 화면을 찾는 읽기 전용 레퍼런스 저장소로 사용한다.
+Figma 변경은 순서대로 실행하고, 실제 Figma 응답으로 프레임과 상태를 확인합니다. UI 레퍼런스는 참고만 하며 다른 제품 화면을 그대로 복제하지 않습니다.
