@@ -1,9 +1,0 @@
-{
-  "flowId": "huddling-learning-mission-v1",
-  "reviewPolicy": {"firstReview":"operator_checklist","aiFirstReview":false},
-  "screens": [
-    {"id":"library_home","storyIds":["US-01"],"role":"free_learner","featureIds":["public_content","paid_preview","category_filter"],"tokens":{"colors":["#141414","#ffffff","#f3f3f3","#707070"],"spacing":[8,16,24,32,48],"radii":[16,24,9999],"font":"Noto Sans KR"}},
-    {"id":"skill_detail","storyIds":["US-02"],"role":"paid_member","featureIds":["skill_card","usage_guide","copy_prompt"],"tokens":{"colors":["#141414","#ffffff","#f0f0f0","#e0e0e0","#707070"],"spacing":[8,12,16,24,32],"radii":[16,24,9999],"font":"Noto Sans KR"}},
-    {"id":"mission_submit","storyIds":["US-03"],"role":"paid_member","featureIds":["mission_submit","submission_status","private_or_member_visibility"],"tokens":{"colors":["#141414","#ffffff","#f0f0f0","#0066ff","#707070"],"spacing":[8,12,16,24,32,48],"radii":[16,24,9999],"font":"Noto Sans KR"}}
-  ]
-}

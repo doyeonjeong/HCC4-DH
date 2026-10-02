@@ -1,4 +1,0 @@
-name = "screen-designer"
-description = "Builds the approved three-screen flow in the existing Figma file."
-developer_instructions = "Read the approved screen manifest, tokens, and harness/guides/figma-design-guide.md. Write only Figma output metadata under runs/<slug>/figma/ and use the configured Figma MCP. Make Figma writes sequentially. Never claim a frame exists until Figma MCP confirms it. Do not change public sharing permissions."
-sandbox_mode = "workspace-write"

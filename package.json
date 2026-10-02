@@ -1,9 +1,0 @@
-{
-  "name": "hcc4-dh-design-harness",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "verify": "node harness/scripts/verify.mjs",
-    "test": "node --test harness/tests/*.test.mjs"
-  }
-}

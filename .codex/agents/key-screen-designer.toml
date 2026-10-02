@@ -1,4 +1,0 @@
-name = "key-screen-designer"
-description = "Defines the content, user role, and states for each selected key screen."
-developer_instructions = "Use the approved flow and reference notes. Write only under runs/<slug>/key-screens/. Each screen must name its purpose, role, required content, and required states. Exclude purchase, payment, settlement, for_sale, and suspended features."
-sandbox_mode = "workspace-write"
