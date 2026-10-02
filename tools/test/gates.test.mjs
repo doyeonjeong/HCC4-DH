@@ -111,6 +111,62 @@ test("G1 detects unbound spacing and gradient stops while accepting variable bin
   assert.equal(result.checks.unbound_values.count, 0);
 });
 
+test("G1 accepts individually bound nonzero corner radii without a common binding", () => {
+  const rules = testRules();
+  const dump = structuredClone(passFixture);
+  const shape = dump.nodes.find((node) => node.id === "frame-button-content");
+  const corners = ["topLeftRadius", "topRightRadius", "bottomLeftRadius", "bottomRightRadius"];
+  shape.cornerRadius = 12;
+  Object.assign(shape, Object.fromEntries(corners.map((corner) => [corner, 12])));
+  shape.boundVariables = Object.fromEntries(corners.map((corner) => [corner, { id: `variable-${corner}` }]));
+
+  let result = evaluateGate(dump, rules, config.preset, "G1");
+  assert.equal(result.checks.unbound_values.count, 0);
+
+  delete shape.boundVariables.bottomRightRadius;
+  result = evaluateGate(dump, rules, config.preset, "G1");
+  assert.equal(result.checks.unbound_values.count, 1);
+});
+
+test("G1 lets a common radius binding cover only equal-valued individual corners", () => {
+  const rules = testRules();
+  const dump = structuredClone(passFixture);
+  const shape = dump.nodes.find((node) => node.id === "frame-button-content");
+  shape.cornerRadius = 12;
+  shape.topLeftRadius = 12;
+  shape.topRightRadius = 8;
+  shape.bottomLeftRadius = 12;
+  shape.bottomRightRadius = 12;
+  shape.boundVariables = { cornerRadius: { id: "variable-radius" } };
+
+  const result = evaluateGate(dump, rules, config.preset, "G1");
+  assert.equal(result.checks.unbound_values.count, 1);
+});
+
+test("G1 checks common radius when no corner is nonzero and ignores zero", () => {
+  const rules = testRules();
+  const dump = structuredClone(passFixture);
+  const shape = dump.nodes.find((node) => node.id === "frame-button-content");
+  shape.cornerRadius = 0;
+  Object.assign(shape, {
+    topLeftRadius: 0,
+    topRightRadius: 0,
+    bottomLeftRadius: 0,
+    bottomRightRadius: 0,
+  });
+
+  let result = evaluateGate(dump, rules, config.preset, "G1");
+  assert.equal(result.checks.unbound_values.count, 0);
+
+  shape.cornerRadius = 12;
+  result = evaluateGate(dump, rules, config.preset, "G1");
+  assert.equal(result.checks.unbound_values.count, 1);
+
+  shape.boundVariables = { cornerRadius: { id: "variable-radius" } };
+  result = evaluateGate(dump, rules, config.preset, "G1");
+  assert.equal(result.checks.unbound_values.count, 0);
+});
+
 test("G1 uses the selected preset minimum target size", async () => {
   const rules = testRules();
   const dump = structuredClone(passFixture);

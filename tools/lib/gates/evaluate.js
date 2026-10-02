@@ -153,16 +153,38 @@ function numericValue(value) {
 function unboundTokenValues(node) {
   const properties = [
     "itemSpacing", "counterAxisSpacing", "paddingLeft", "paddingRight", "paddingTop", "paddingBottom",
-    "cornerRadius", "topLeftRadius", "topRightRadius", "bottomLeftRadius", "bottomRightRadius",
     "fontSize", "lineHeight", "letterSpacing",
   ];
-  return properties.filter((property) => {
+  const unbound = properties.filter((property) => {
     const value = numericValue(node[property]);
     if (value === undefined || value === 0 || hasBinding(node.boundVariables?.[property])) return false;
     if (["fontSize", "lineHeight", "letterSpacing"].includes(property)
       && typeof node.textStyleId === "string" && node.textStyleId !== "MIXED") return false;
     return true;
   });
+
+  const radii = ["topLeftRadius", "topRightRadius", "bottomLeftRadius", "bottomRightRadius"];
+  const hasIndividualRadius = radii.some((corner) => {
+    const value = numericValue(node[corner]);
+    return value !== undefined && value !== 0;
+  });
+  if (hasIndividualRadius) {
+    const commonRadius = numericValue(node.cornerRadius);
+    const commonRadiusIsBound = hasBinding(node.boundVariables?.cornerRadius);
+    for (const corner of radii) {
+      const value = numericValue(node[corner]);
+      if (value === undefined || value === 0) continue;
+      const commonBindingCoversCorner = commonRadiusIsBound && value === commonRadius;
+      if (!commonBindingCoversCorner && !hasBinding(node.boundVariables?.[corner])) unbound.push(corner);
+    }
+  } else {
+    const commonRadius = numericValue(node.cornerRadius);
+    if (commonRadius !== undefined && commonRadius !== 0 && !hasBinding(node.boundVariables?.cornerRadius)) {
+      unbound.push("cornerRadius");
+    }
+  }
+
+  return unbound;
 }
 
 function isUnderInstance(node, tree) {
