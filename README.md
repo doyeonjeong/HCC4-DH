@@ -1,56 +1,88 @@
-# HCC4-DH — 허들링 디자인 하네스
+# 범용 디자인 하네스
 
-허들링 PRD를 기준으로 MVP 흐름을 정리하고, UI Bowl 레퍼런스와 Figma 화면을 만들며, 기계 판정 게이트로 결과를 확인하는 실습용 Codex 하네스입니다.
+## 제품 설명
 
-## 이번 PoC 결과
+새 프로젝트에 복사해 `rules.yaml`과 `docs/`를 채우면, Claude Code 또는 Codex가 PRD부터 디자인 시스템·화면·HTML 프로토타입까지 일관된 단계와 게이트로 만드는 템플릿입니다.
 
-- 흐름: 무료 학습자료 → 스킬 상세 → 월간 미션 제출
-- 화면: `library_home`, `skill_detail`, `mission_submit` (각 390×844)
-- Figma: [허들링 앱 MVP · 학습·미션 PoC](https://www.figma.com/design/DF7XZVnPQqcqobaKgPJy98)
-- UI Bowl: 플랭 학습 메인, 말해보카 도전 과제 레퍼런스 2개
-- 구매·결제·정산·마켓 기능은 이번 화면 명세에서 제외
+## 주요 기능
 
-## 하네스 구성
+- P1 → P2 → G1 → P3 → G2 → G3 → P4 흐름과 재시도 규칙
+- 모바일·웹 프리셋, 공통 컴포넌트·토큰·화면 기준
+- Figma 덤프와 G1/G2 기계 게이트 및 요약 번들
+- `rules.yaml` 승인 잠금과 단계별 도구 보호 훅
+- P4에서 데스크톱·360px 화면을 캡처해 Figma와 비교하는 시각 QA
 
-| 층 | 파일 | 역할 |
-|---|---|---|
-| 기준 문서 | `docs/prd.md`, `docs/design.md`, `docs/story-service.md`, `docs/story-work.md` | 제품·디자인 맥락과 확인된 수작업 기준 |
-| 규칙 | `rules.yaml`, `defaults.yaml` | 게이트 기준 SSOT와 이번 실행의 기본 흐름 |
-| 작업자 | `.codex/agents/*.toml` | 역할별 범위가 제한된 Codex 에이전트 |
-| 실행 안내 | `AGENTS.md`, `.agents/skills/run-harness/SKILL.md` | 오케스트레이터 규칙과 재사용 가능한 실행 절차 |
-| 판정 | `harness/scripts/`, `harness/guides/` | 화면 명세·토큰·UI Bowl·Figma 프레임 검사 |
-| 실행 기록 | `runs/huddling-mvp-poc/` | 입력, 진행 상태, 판정, 승인 기록 |
+## 기술 스택
 
-`gate-judge` 에이전트는 읽기 전용입니다. R1-B에 해당하는 AI 없는 과거 수작업 순서는 확인되지 않아, 하네스가 그 이력을 재현한다고 주장하지 않습니다.
+- Node.js ES modules
+- YAML 파서, esbuild, Node 내장 테스트 러너
+- Figma MCP, Claude Code hooks, 헤드리스 Chrome
 
-## 빠른 확인
+## 아키텍처
 
-필요한 것은 Node.js뿐이며 외부 패키지 설치는 없습니다.
-
-```bash
-npm test
-npm run verify
+```mermaid
+flowchart LR
+  A[docs/와 rules.yaml] --> B[P1 요구사항]
+  B --> C[P2 레퍼런스와 시스템]
+  C --> D[G1 Figma 시스템 검사]
+  D --> E[P3 화면과 상호작용]
+  E --> F[G2 화면 검사]
+  F --> G[G3 사람 승인]
+  G --> H[P4 HTML 프로토타입]
+  H --> I[Chrome 시각 QA: 데스크톱 + 360px]
+  J[presets/] --> A
+  K[tools/와 hooks] --> D
+  K --> F
 ```
 
-검증 결과는 `runs/huddling-mvp-poc/gate-results.json`에 저장됩니다. 현재 입력 해시가 바뀌면 이전 시안 승인은 무효입니다. 시안을 확인한 사람이 `approval.md`에 `APPROVED: yes`, 승인자, 시각, 그리고 판정 결과의 `input_sha256` 값을 기록한 뒤 아래 명령으로 G5 승인을 저장합니다.
+게이트 판정은 Figma에서 `tools/build-figma-gate.mjs`가 만든 번들을 실행합니다. 번들은 덤프와 평가를 내부에서 수행하고 요약만 반환해 Figma 응답을 20KB 안으로 제한합니다.
 
-```bash
-node harness/scripts/save-blocks.mjs --run huddling-mvp-poc --gate G5 --status pass
-node harness/scripts/verify.mjs --run huddling-mvp-poc
+## 사전 요구사항
+
+- Node.js 20 이상
+- Figma 데스크톱 또는 Figma MCP 연결
+- 헤드리스 Chrome 실행 환경(예: Playwright와 Chromium)
+- Claude Code 또는 Codex
+
+## 시작
+
+1. 저장소 폴더를 새 프로젝트로 복사하고 사용할 프리셋을 고릅니다.
+2. `rules.yaml`과 `docs/prd.md`, `docs/story-service.md`, `docs/design.md`를 프로젝트 내용으로 채웁니다. `rules.yaml` 수정은 사람 승인 후 루트에 `.rules-unlock` 파일을 만들어 허용합니다.
+3. `cd tools && npm install && npm test`로 도구를 준비하고 `CLAUDE.md` 또는 `AGENTS.md`의 지시에 따라 P1부터 진행합니다.
+
+도구만 최신 템플릿으로 갱신할 때는 `npx degit doyeonjeong/HCC4-DH/tools tools --force`를 사용합니다.
+
+## 명령어
+
+| 위치 | 명령 | 설명 |
+| --- | --- | --- |
+| `tools/` | `npm install` | 도구 의존성 설치 |
+| `tools/` | `npm test` | 전체 단위 테스트 실행 |
+| 저장소 루트 | `node tools/check-sync.mjs` | 디자인 문서와 규칙 동기화 검사 |
+| 저장소 루트 | `node tools/check-sync.mjs --preset web` | 웹 프리셋으로 동기화 검사 (규칙 파일은 변경하지 않음) |
+| 저장소 루트 | `node tools/build-figma-gate.mjs --gate G1` | G1 Figma 실행 번들 생성 |
+| 저장소 루트 | `node tools/build-figma-gate.mjs --gate G2` | G2 Figma 실행 번들 생성 |
+| 저장소 루트 | `node tools/check-gates.mjs --gate G1 --dump <dump.json> --out runs/<id>/G1.json` | 덤프 파일로 게이트 평가·디버깅 |
+
+## 프로젝트 구조
+
+```text
+.
+├── AGENTS.md / CLAUDE.md       # Codex와 Claude Code 공통 실행 규칙
+├── .claude/settings.json       # Claude Code 보호 훅
+├── docs/                       # 프로젝트 PRD·서비스 규칙·디자인 기준
+├── examples/huddling/          # 기존 Huddling PoC 보존본
+├── harness/                    # R2~R7 실행 규칙
+├── presets/                    # mobile.yaml, web.yaml
+├── rules.yaml                  # 프로젝트 게이트 기준 SSOT
+├── state.json                  # 현재 단계와 게이트 상태 양식
+├── runs/                       # 실행별 산출물
+└── tools/                      # 덤프·평가·동기화·훅·테스트
 ```
 
-## 새 실행과 재개
+## 참고 사항
 
-1. `defaults.yaml`을 바탕으로 새 `runs/<slug>/` 입력과 상태 파일을 만듭니다.
-2. `AGENTS.md`와 `.agents/skills/run-harness/SKILL.md` 순서로 작업하고, 단계마다 검증합니다.
-3. Figma MCP에서 실제 화면 정보를 다시 읽어 `figma/metadata.xml`에 저장한 뒤 내보냅니다.
-
-```bash
-node harness/scripts/figma-export-figma.js --run <slug>
-node harness/scripts/verify.mjs --run <slug>
-node harness/scripts/save-blocks.mjs --run <slug> --gate G7 --status pass
-```
-
-## 상태와 제출
-
-이번 실행의 기계 게이트는 통과했습니다. `gate-results.json`의 `human_approval_pending`은 사람의 시안 확인을 기다린다는 뜻이며, 자동으로 Public 제출을 허용하지 않습니다. Figma 링크 공개, Git commit/push, 과제 제출은 결과를 확인한 사용자가 직접 진행합니다.
+- 게이트는 구조와 수치 기준을 확인합니다. 미감은 G3 사람 승인과 P4 시각 QA에서 확인합니다.
+- Figma MCP 호출은 프로젝트당 약 15~20회가 기준이며, 복잡한 흐름은 더 필요할 수 있습니다.
+- 시각 QA는 화면별 데스크톱 폭과 360px 폭을 캡처해 Figma 기준과 비교하고 결함 표를 남깁니다.
+- 테스트 픽스처는 범용 가짜 데이터만 사용합니다. 실제 프로젝트 화면·문구·파일 키를 테스트 데이터에 넣지 않습니다.

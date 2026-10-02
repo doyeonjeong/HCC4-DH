@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "run_id": null,
+  "phase": "P1",
+  "gates": {
+    "G1": { "status": "pending", "rules_sha256": null, "evidence": null },
+    "G2": { "status": "pending", "rules_sha256": null, "evidence": null },
+    "G3": { "status": "pending", "rules_sha256": null, "evidence": null }
+  },
+  "consecutive_failures": 0,
+  "last_failure": null,
+  "updated_at": null
+}
