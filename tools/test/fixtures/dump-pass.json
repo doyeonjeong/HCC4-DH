@@ -1,0 +1,55 @@
+{
+  "dumper": "figma-dump@1.0.0",
+  "page": { "id": "page-system", "name": "Design System", "type": "PAGE" },
+  "node_count": 5,
+  "nodes": [
+    {
+      "id": "set-button",
+      "name": "Button",
+      "type": "COMPONENT_SET",
+      "parentId": "page-system",
+      "componentPropertyDefinitions": { "type": { "type": "VARIANT" } }
+    },
+    {
+      "id": "component-button",
+      "name": "type=primary",
+      "type": "COMPONENT",
+      "parentId": "set-button",
+      "variantProperties": { "type": "primary" },
+      "layoutMode": "HORIZONTAL",
+      "width": 88,
+      "height": 44
+    },
+    {
+      "id": "frame-button-content",
+      "name": "Content",
+      "type": "FRAME",
+      "parentId": "component-button",
+      "layoutMode": "HORIZONTAL"
+    },
+    {
+      "id": "text-button-label",
+      "name": "Label",
+      "type": "TEXT",
+      "parentId": "frame-button-content",
+      "characters": "Continue",
+      "textAutoResize": "HEIGHT",
+      "fills": [
+        {
+          "type": "SOLID",
+          "color": { "r": 0.1, "g": 0.1, "b": 0.1 },
+          "boundVariables": { "color": { "id": "variable-text" } }
+        }
+      ]
+    },
+    {
+      "id": "instance-button",
+      "name": "Button",
+      "type": "INSTANCE",
+      "parentId": "page-system",
+      "width": 88,
+      "height": 44,
+      "mainComponent": { "name": "Primary", "componentSet": { "name": "Button" } }
+    }
+  ]
+}

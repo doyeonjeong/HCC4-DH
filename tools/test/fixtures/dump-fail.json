@@ -1,0 +1,23 @@
+{
+  "dumper": "figma-dump@1.0.0",
+  "page": { "id": "page-system", "name": "Design System", "type": "PAGE" },
+  "node_count": 2,
+  "nodes": [
+    {
+      "id": "frame-card",
+      "name": "Card",
+      "type": "FRAME",
+      "parentId": "page-system",
+      "layoutMode": "NONE",
+      "fills": [{ "type": "SOLID", "color": { "r": 0.6, "g": 0.6, "b": 0.6 } }]
+    },
+    {
+      "id": "text-card-title",
+      "name": "Title",
+      "type": "TEXT",
+      "parentId": "frame-card",
+      "characters": "Sample title",
+      "textAutoResize": "NONE"
+    }
+  ]
+}
