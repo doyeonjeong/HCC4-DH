@@ -1,6 +1,6 @@
 # 디자인 하네스 실행 규칙
 
-작업을 시작할 때 `HANDOFF.md`, `rules.yaml`, `state.json`, `docs/`, 그리고 `harness/r2-purpose.md`부터 `harness/r7-orchestrator.md`까지 읽습니다. Claude Code는 `CLAUDE.md`에서도 같은 규칙을 읽습니다.
+작업을 시작할 때 `HANDOFF.md`, `rules.yaml`, `state.json`, `docs/`, 그리고 `harness/r2-purpose.md`부터 `harness/r7-orchestrator.md`까지 읽습니다. Codex는 `AGENTS.md`에서도 같은 규칙을 읽습니다.
 
 - 단계 순서: P1 → P2 → G1 → P3 → G2 → G3 → P4. 단계별 산출물과 통과 조건은 `harness/`가 기준입니다.
 - 제품 사실은 `docs/`에서 가져오고, 수치 기준은 `rules.yaml`과 선택한 `presets/`에서 가져옵니다. 없는 사실을 만들어 채우지 않습니다.

@@ -1,0 +1,24 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/tools/hooks/guard-rules.mjs\""
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__figma__use_figma|Artifact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/tools/hooks/guard-phase.mjs\""
+          }
+        ]
+      }
+    ]
+  }
+}
