@@ -70,6 +70,40 @@ function screenDump({ safeBinding = true, duplicateAction = false, titleVisible 
   return { dumper: "figma-dump@1.0.0", page, node_count: nodes.length, nodes };
 }
 
+function variantScreenDump({ nested = false } = {}) {
+  const page = { id: "page-screens", name: "Screens", type: "PAGE" };
+  const parent = {
+    id: "screen-home",
+    name: "Home",
+    type: "FRAME",
+    parentId: page.id,
+    layoutMode: "VERTICAL",
+    width: 375,
+    height: 812,
+    fills: [solid(1, 1, 1)],
+    boundVariables: { paddingTop: { id: "variable-safe-top" } },
+  };
+  const variants = ["empty", "full"].map((variant) => ({
+    id: `screen-home-${variant}`,
+    name: `Home/${variant}`,
+    type: "FRAME",
+    parentId: nested ? parent.id : page.id,
+    layoutMode: "VERTICAL",
+    width: 375,
+    height: 812,
+    fills: [solid(1, 1, 1)],
+    boundVariables: { paddingTop: { id: "variable-safe-top" } },
+  }));
+  const shapes = ["empty", "full"].map((variant) => ({
+    id: `shape-home-${variant}`,
+    name: `Shape ${variant}`,
+    type: "RECTANGLE",
+    parentId: `screen-home-${variant}`,
+  }));
+  const nodes = [...(nested ? [parent] : []), ...variants, ...shapes];
+  return { dumper: "figma-dump@1.0.0", page, node_count: nodes.length, nodes };
+}
+
 function screenRules() {
   const rules = testRules();
   rules.screens = [{ id: "screen-home", title: "Home" }];
@@ -206,6 +240,21 @@ test("G1 rejects a page whose name differs from rules.yaml", () => {
 test("G2 accepts a screen with bound safe area, one primary action, and readable text", () => {
   const result = evaluateGate(screenDump(), screenRules(), config.preset, "G2");
   assert.equal(result.pass, true, JSON.stringify(result.checks));
+});
+
+test("G2 matches every sibling frame with a screen-name suffix", () => {
+  const rules = screenRules();
+  rules.screens = ["Home"];
+  const result = evaluateGate(variantScreenDump(), rules, config.preset, "G2");
+  assert.equal(result.checks.screens.count, 0);
+  assert.equal(result.checks.non_instance_elements.count, 2);
+});
+
+test("G2 excludes matched child frames covered by a matched ancestor", () => {
+  const rules = screenRules();
+  rules.screens = ["Home"];
+  const result = evaluateGate(variantScreenDump({ nested: true }), rules, config.preset, "G2");
+  assert.equal(result.checks.non_instance_elements.count, 2);
 });
 
 test("G2 checks safe-area binding only when the selected preset has a top inset", async () => {

@@ -206,15 +206,25 @@ function variantAxisCount(set, nodes) {
   return keys.size;
 }
 
-function findScreens(dump, rules) {
+function findScreens(dump, rules, tree) {
   const configured = Array.isArray(rules.screens) ? rules.screens : [];
   const frames = dump.nodes.filter((node) => node.type === "FRAME");
   if (configured.length === 0) return [];
-  return configured.map((screen) => {
-    const id = typeof screen === "string" ? screen : screen.id;
-    const title = typeof screen === "string" ? screen : screen.title;
-    return frames.find((frame) => frame.id === id || frame.name === title || frame.name === id);
-  }).filter(Boolean);
+  const matchesScreen = (frame, screen) => {
+    const id = typeof screen === "string" ? screen : screen?.id;
+    const names = typeof screen === "string" ? [screen] : [screen?.id, screen?.title];
+    const frameName = frame.name.trim();
+    return frame.id === id || names.some((value) => {
+      if (typeof value !== "string" || !value.trim()) return false;
+      const name = value.trim();
+      return frameName === name || frameName.startsWith(`${name}/`);
+    });
+  };
+  const matches = frames.filter((frame) => configured.some((screen) => matchesScreen(frame, screen)));
+  const matchingIds = new Set(matches.map((frame) => frame.id));
+  return matches.filter((frame) => !tree.ancestors(frame).some((ancestor) =>
+    ancestor.type === "FRAME" && matchingIds.has(ancestor.id),
+  ));
 }
 
 function rgb(paint) {
@@ -389,7 +399,7 @@ function checkInvariants(dump, rules, screens, tree, violations) {
 function checkFrames(dump, rules, preset, tree, violations) {
   const checks = rules.gates?.G2?.checks;
   if (!isRecord(checks)) throw new TypeError("rules.yaml must define gates.G2.checks");
-  const frames = findScreens(dump, rules);
+  const frames = findScreens(dump, rules, tree);
   if (!frames.length) {
     addViolation(violations, "screens", dump.page.id);
     return;
