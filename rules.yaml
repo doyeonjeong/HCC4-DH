@@ -1,34 +1,106 @@
-{
-  "version": 1,
-  "screenCount": 3,
-  "screenIds": ["library_home", "skill_detail", "mission_submit"],
-  "stories": {"min": 1, "max": 5},
-  "invariants": {"min": 1, "max": 2},
-  "references": {"min": 2, "host": "uibowl.io"},
-  "frame": {"width": 390, "height": 844},
-  "design": {
-    "colors": ["#141414", "#262626", "#ffffff", "#f3f3f3", "#f0f0f0", "#e0e0e0", "#707070", "#adadad", "#0066ff"],
-    "spacing": [4, 8, 12, 16, 24, 32, 48, 64],
-    "radii": [0, 16, 24, 9999],
-    "fonts": ["Pretendard", "Noto Sans KR"]
-  },
-  "forbiddenFeatureIds": ["for_sale", "suspended", "purchase", "payment", "settlement", "marketplace"],
-  "trafficLightRules": [
-    {"id": "SVC-SELLER-ROLE", "gate": "G1", "check": "sale_requested requires seller role"},
-    {"id": "SVC-MANUAL-REVIEW", "gate": "G1", "check": "manual checklist review; no AI first review"},
-    {"id": "MVP-NO-MARKETPLACE", "gate": "G7", "check": "no marketplace, purchase, payment, settlement, for_sale, or suspended feature ids"},
-    {"id": "FLOW-THREE-SCREENS", "gate": "G2", "check": "exactly three required screens"},
-    {"id": "REF-TWO-SOURCES", "gate": "G3", "check": "at least two UI Bowl source links"},
-    {"id": "TOK-DESIGN-SYSTEM", "gate": "G6", "check": "tokens are within docs/design.md values"},
-    {"id": "FIGMA-FRAME-STATE", "gate": "G7", "check": "actual Figma file has all required frames at baseline dimensions"}
-  ],
-  "agentScopes": {
-    "ref-collector": "runs/<slug>/references/",
-    "flow-planner": "runs/<slug>/scope/",
-    "key-screen-designer": "runs/<slug>/key-screens/",
-    "system-builder": "runs/<slug>/tokens/",
-    "screen-designer": "runs/<slug>/figma/",
-    "orchestrator": "runs/<slug>/runtime/",
-    "gate-judge": null
-  }
-}
+version: 1
+preset: mobile # TODO: choose mobile or web.
+
+project:
+  name: "" # TODO: project name.
+  purpose: "" # TODO: one-sentence product purpose.
+
+pipeline: [P1, P2, G1, P3, G2, G3, P4]
+retry:
+  max_consecutive_failures: 3
+
+figma:
+  file_url: "" # TODO: add the project Figma URL after creating it.
+  pages:
+    system: Design System
+    screens: Screens
+
+components:
+  max_count: 12
+  max_variant_axes: 3
+  required:
+    - Button
+    - Card
+    - Checkbox
+    - Dialog
+    - Heading # Screen titles and section labels.
+    - Input
+    - Navigation
+    - Radio
+    - Select
+    - Switch
+    - Tabs
+    - Badge
+  interactive:
+    - Button
+    - Checkbox
+    - Input
+    - Radio
+    - Select
+    - Switch
+    - Tabs
+  text_required:
+    - Heading
+    - Badge
+  center_text: [] # TODO: list components that require centered text.
+  primary_action:
+    component: Button
+    property: type
+    value: primary
+
+screens: [] # TODO: add screen IDs and titles before G2.
+
+tokens:
+  colors:
+    canvas: "#FFFFFF"
+    surface: "#F5F6F8"
+    text-primary: "#17191C"
+    text-secondary: "#5E6672"
+    border: "#D9DEE5"
+    primary: "#315FE8"
+  spacing:
+    xxs: 4
+    xs: 8
+    sm: 12
+    md: 16
+    lg: 24
+    xl: 32
+    2xl: 48
+    3xl: 64
+  radii:
+    none: 0
+    sm: 8
+    md: 12
+    lg: 16
+    xl: 24
+    full: 9999
+  typography:
+    display: [32, 40, 700]
+    heading: [24, 32, 700]
+    body: [16, 24, 400]
+    caption: [14, 20, 400]
+  safe_area:
+    variable: safe-area.top
+    bind_to: paddingTop
+
+gates:
+  G1:
+    page: Design System
+    checks:
+      unbound_values: 0
+      autolayout_off: 0
+      text_not_centered: 0
+      fixed_height_text: 0
+      min_target_size: true # Actual minimum comes from presets/<preset>.yaml.
+      component_count_max: 12
+      variant_axes_max: 3
+      required_components: 0
+      text_required: 0
+  G2:
+    page: Screens
+    checks:
+      non_instance_elements: 0
+      primary_action_per_screen_max: 1
+      min_contrast: 4.5
+      safe_area_binding: true
+      invariants: [] # TODO: add frame invariants using the schema in harness/r5-gates.md.

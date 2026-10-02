@@ -1,0 +1,9 @@
+name: web
+viewport:
+  width: 1440
+  height: 900
+safe_area:
+  top: 0
+target:
+  minimum_size: 24
+  meaning: pointer
