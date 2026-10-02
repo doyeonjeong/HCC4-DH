@@ -1,0 +1,36 @@
+{
+  "fileKey": "DF7XZVnPQqcqobaKgPJy98",
+  "fileUrl": "https://www.figma.com/design/DF7XZVnPQqcqobaKgPJy98",
+  "pageId": "0:1",
+  "frames": [
+    {
+      "screenId": "library_home",
+      "nodeId": "5:4",
+      "name": "library_home · 무료 학습자료",
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844
+    },
+    {
+      "screenId": "skill_detail",
+      "nodeId": "5:39",
+      "name": "skill_detail · 스킬 상세",
+      "x": 450,
+      "y": 0,
+      "width": 390,
+      "height": 844
+    },
+    {
+      "screenId": "mission_submit",
+      "nodeId": "5:71",
+      "name": "mission_submit · 미션 제출",
+      "x": 900,
+      "y": 0,
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "source": "Figma MCP get_metadata",
+  "rulesVersion": 1
+}

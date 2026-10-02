@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "screenCount": 3,
+  "screenIds": ["library_home", "skill_detail", "mission_submit"],
+  "stories": {"min": 1, "max": 5},
+  "invariants": {"min": 1, "max": 2},
+  "references": {"min": 2, "host": "uibowl.io"},
+  "frame": {"width": 390, "height": 844},
+  "design": {
+    "colors": ["#141414", "#262626", "#ffffff", "#f3f3f3", "#f0f0f0", "#e0e0e0", "#707070", "#adadad", "#0066ff"],
+    "spacing": [4, 8, 12, 16, 24, 32, 48, 64],
+    "radii": [0, 16, 24, 9999],
+    "fonts": ["Pretendard", "Noto Sans KR"]
+  },
+  "forbiddenFeatureIds": ["for_sale", "suspended", "purchase", "payment", "settlement", "marketplace"],
+  "trafficLightRules": [
+    {"id": "SVC-SELLER-ROLE", "gate": "G1", "check": "sale_requested requires seller role"},
+    {"id": "SVC-MANUAL-REVIEW", "gate": "G1", "check": "manual checklist review; no AI first review"},
+    {"id": "MVP-NO-MARKETPLACE", "gate": "G7", "check": "no marketplace, purchase, payment, settlement, for_sale, or suspended feature ids"},
+    {"id": "FLOW-THREE-SCREENS", "gate": "G2", "check": "exactly three required screens"},
+    {"id": "REF-TWO-SOURCES", "gate": "G3", "check": "at least two UI Bowl source links"},
+    {"id": "TOK-DESIGN-SYSTEM", "gate": "G6", "check": "tokens are within docs/design.md values"},
+    {"id": "FIGMA-FRAME-STATE", "gate": "G7", "check": "actual Figma file has all required frames at baseline dimensions"}
+  ],
+  "agentScopes": {
+    "ref-collector": "runs/<slug>/references/",
+    "flow-planner": "runs/<slug>/scope/",
+    "key-screen-designer": "runs/<slug>/key-screens/",
+    "system-builder": "runs/<slug>/tokens/",
+    "screen-designer": "runs/<slug>/figma/",
+    "orchestrator": "runs/<slug>/runtime/",
+    "gate-judge": null
+  }
+}
