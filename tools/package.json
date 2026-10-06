@@ -10,7 +10,10 @@
     "test": "node --test",
     "check-sync": "node check-sync.mjs",
     "build:figma:g1": "node build-figma-gate.mjs --gate G1",
-    "build:figma:g2": "node build-figma-gate.mjs --gate G2"
+    "build:figma:g2": "node build-figma-gate.mjs --gate G2",
+    "figma:scripts": "node figma-scripts/generate.mjs",
+    "figma:check": "node figma-scripts/generate.mjs --check",
+    "figma:mock": "node figma-scripts/mock-run.mjs"
   },
   "dependencies": {
     "esbuild": "^0.25.0",

@@ -2,3 +2,5 @@ node_modules/
 tools/dist/
 .rules-unlock
 .DS_Store
+figma/build-*.js
+figma/ai-prompts.md
