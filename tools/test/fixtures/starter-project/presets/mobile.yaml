@@ -1,0 +1,9 @@
+name: mobile
+viewport:
+  width: 375
+  height: 812
+safe_area:
+  top: 54
+target:
+  minimum_size: 44
+  meaning: touch

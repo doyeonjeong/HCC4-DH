@@ -8,6 +8,7 @@
 - 실행 단계는 P1 → P2 → G1 → P3 → G2 → G3 → P4입니다.
 - 도구 테스트 39개, mobile 동기화 검사, G1/G2 번들 크기 검증을 통과했습니다. G2 번들은 17,157 bytes입니다.
 - 실제 프로젝트의 Figma 흐름이나 화면은 아직 생성하지 않았습니다.
+- 2026-10-06 `fix/learnings-questers-morewin` 브랜치: MoreWin·Questers 실제 실행에서 나온 수정 5건 반영(TextEncoder 없는 바이트 계산, 테스트 픽스처 분리, Figma 플러그인 도구 이름 훅, `safe-area/top`, 컴포넌트 세트 모서리 주의). 아직 main에 합치지 않았습니다.
 
 ## 다음 액션
 

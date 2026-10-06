@@ -14,7 +14,9 @@ for (const gate of ["G1", "G2"]) {
     const source = await readFile(built.outputPath, "utf8");
     const pageName = gate === "G1" ? "Design System" : "Screens";
     const figma = { mixed: Symbol("mixed"), root: { children: [{ id: "page-test", name: pageName, type: "PAGE", children: [] }] } };
-    const result = await new AsyncFunction("figma", source)(figma);
+    // The Figma plugin sandbox has no TextEncoder; run the bundle with it shadowed to undefined.
+    assert.doesNotMatch(source, /TextEncoder/);
+    const result = await new AsyncFunction("figma", "TextEncoder", source)(figma, undefined);
     assert.equal(result.gate, gate);
     assert.equal(result.page, pageName);
     assert.match(result.rules_sha256, /^[\da-f]{64}$/);

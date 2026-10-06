@@ -7,7 +7,8 @@ import { parse } from "yaml";
 import { loadProjectConfig } from "../lib/config.mjs";
 import { evaluateGate, validateDump } from "../lib/gates/evaluate.js";
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+// Tool tests read a fixed starter project so filling rules.yaml/docs for a real project does not break them.
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "fixtures/starter-project");
 const config = await loadProjectConfig(root);
 const fixtureDir = resolve(dirname(fileURLToPath(import.meta.url)), "fixtures");
 const passFixture = JSON.parse(await readFile(resolve(fixtureDir, "dump-pass.json"), "utf8"));

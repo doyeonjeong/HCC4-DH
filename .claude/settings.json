@@ -11,7 +11,7 @@
         ]
       },
       {
-        "matcher": "mcp__figma__use_figma|Artifact",
+        "matcher": "mcp__figma__use_figma|mcp__plugin_figma_figma__use_figma|Artifact",
         "hooks": [
           {
             "type": "command",

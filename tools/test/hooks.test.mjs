@@ -14,7 +14,7 @@ const rulesHash = createHash("sha256").update(rulesText).digest("hex");
 test("Claude Code settings connect both protection hooks", () => {
   const projectRoot = resolve(toolsRoot, "..");
   const settings = JSON.parse(readFileSync(resolve(projectRoot, ".claude/settings.json"), "utf8"));
-  assert.deepEqual(settings.hooks.PreToolUse.map((entry) => entry.matcher), ["Write|Edit|MultiEdit", "mcp__figma__use_figma|Artifact"]);
+  assert.deepEqual(settings.hooks.PreToolUse.map((entry) => entry.matcher), ["Write|Edit|MultiEdit", "mcp__figma__use_figma|mcp__plugin_figma_figma__use_figma|Artifact"]);
   assert.match(settings.hooks.PreToolUse[0].hooks[0].command, /tools\/hooks\/guard-rules\.mjs/);
   assert.match(settings.hooks.PreToolUse[1].hooks[0].command, /tools\/hooks\/guard-phase\.mjs/);
 });
@@ -80,6 +80,7 @@ test("guard-phase permits Figma design work in P1/P2 and only a G1 bundle during
   allowed(invoke(p2, "guard-phase", "mcp__figma__use_figma", { code: "figma.createFrame()" }));
   const g1 = fixture({ phase: "G1", gates: {}, consecutive_failures: 0 });
   blocked(invoke(g1, "guard-phase", "mcp__figma__use_figma", { code: "figma.createFrame()" }), /읽기 전용 번들/);
+  blocked(invoke(g1, "guard-phase", "mcp__plugin_figma_figma__use_figma", { code: "figma.createFrame()" }), /읽기 전용 번들/);
   allowed(invoke(g1, "guard-phase", "mcp__figma__use_figma", { code: 'FigmaGate.run(figma, "G1")' }));
   for (const item of [fix, p2, g1]) rmSync(item.root, { recursive: true, force: true });
 });

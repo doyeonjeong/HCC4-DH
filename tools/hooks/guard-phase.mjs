@@ -3,7 +3,9 @@ import { resolve } from "node:path";
 import { parse } from "yaml";
 import { block, findHarnessRoot, readHookInput, readState } from "./context.mjs";
 
-const isFigmaTool = (name) => name === "mcp__figma__use_figma";
+// Figma MCP direct install and the Claude Code Figma plugin expose different tool names.
+const FIGMA_TOOLS = new Set(["mcp__figma__use_figma", "mcp__plugin_figma_figma__use_figma"]);
+const isFigmaTool = (name) => FIGMA_TOOLS.has(name);
 const isArtifactTool = (name) => /artifact/i.test(String(name ?? ""));
 
 function toolText(input) {

@@ -43,7 +43,11 @@ function createEntry({ gate, rules, preset, rulesSha256, presetSha256 }) {
         preset: { name: preset.name, viewport: preset.viewport, safe_area_top: preset.safe_area.top, target_minimum_size: preset.target.minimum_size },
         checks,
       };
-      if (new TextEncoder().encode(JSON.stringify(summary)).byteLength > 18000) {
+      // The Figma plugin sandbox has no TextEncoder, so count UTF-8 bytes directly.
+      const json = JSON.stringify(summary);
+      let bytes = 0;
+      for (const char of json) { const code = char.codePointAt(0); bytes += code < 0x80 ? 1 : code < 0x800 ? 2 : code < 0x10000 ? 3 : 4; }
+      if (bytes > 18000) {
         throw new Error("gate summary exceeds 18KB; reduce the number of reported violations");
       }
       return summary;

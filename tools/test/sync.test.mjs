@@ -6,7 +6,8 @@ import { fileURLToPath } from "node:url";
 import { loadProjectConfig } from "../lib/config.mjs";
 import { checkSync } from "../lib/gates/sync.js";
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+// Tool tests read a fixed starter project so filling rules.yaml/docs for a real project does not break them.
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "fixtures/starter-project");
 const design = await readFile(resolve(root, "docs/design.md"), "utf8");
 const { rules } = await loadProjectConfig(root);
 
