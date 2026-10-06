@@ -62,6 +62,8 @@ flowchart LR
 | 저장소 루트 | `node tools/check-sync.mjs --preset web` | 웹 프리셋으로 동기화 검사 (규칙 파일은 변경하지 않음) |
 | 저장소 루트 | `node tools/build-figma-gate.mjs --gate G1` | G1 Figma 실행 번들 생성 |
 | 저장소 루트 | `node tools/build-figma-gate.mjs --gate G2` | G2 Figma 실행 번들 생성 |
+| 저장소 루트 | `node tools/figma-scripts/generate.mjs` | 규칙에서 붙여넣기용 `figma/build-*.js`와 Figma AI 프롬프트 생성 (`--check`로 최신인지 확인) |
+| 저장소 루트 | `node tools/figma-scripts/mock-run.mjs` | Figma 호출 없이 스크립트를 가짜 Figma에서 실행하고 모의 G1/G2 확인 |
 | 저장소 루트 | `node tools/check-gates.mjs --gate G1 --dump <dump.json> --out runs/<id>/G1.json` | 덤프 파일로 게이트 평가·디버깅 |
 
 ## 프로젝트 구조
@@ -71,6 +73,7 @@ flowchart LR
 ├── AGENTS.md / CLAUDE.md       # Codex와 Claude Code 공통 실행 규칙
 ├── .claude/settings.json       # Claude Code 보호 훅
 ├── docs/                       # 프로젝트 PRD·서비스 규칙·디자인 기준
+├── figma/src/                  # Figma 스크립트 원본 (생성기가 figma/build-*.js로 만든다)
 ├── examples/huddling/          # 기존 Huddling PoC 보존본
 ├── harness/                    # R2~R7 실행 규칙
 ├── presets/                    # mobile.yaml, web.yaml
@@ -83,7 +86,7 @@ flowchart LR
 ## 참고 사항
 
 - 게이트는 구조와 수치 기준을 확인합니다. 미감은 G3 사람 승인과 P4 시각 QA에서 확인합니다.
-- Figma MCP 호출은 프로젝트당 약 15~20회가 기준이며, 복잡한 흐름은 더 필요할 수 있습니다.
+- Figma MCP 호출은 새 파일 기준 5회(파일 생성, 시스템, G1, 화면, G2)를 목표로 합니다. 순서와 실패 처리는 `harness/r7-orchestrator.md`의 "Figma 최소 호출 런북"에 있습니다.
 - 시각 QA는 화면별 데스크톱 폭과 360px 폭을 캡처해 Figma 기준과 비교하고 결함 표를 남깁니다.
 - Figma 실행에서 배운 주의사항(TextEncoder 없음, 변수 이름의 `.` 금지, 컴포넌트 세트 기본 모서리, 플러그인 도구 이름, 하위 폴더 훅)은 `tools/README.md`에 있습니다.
 - 테스트 픽스처는 범용 가짜 데이터만 사용합니다. 실제 프로젝트 화면·문구·파일 키를 테스트 데이터에 넣지 않습니다.
